@@ -1,8 +1,8 @@
-## Pong project using Processing
+# Pong project using Processing
 
 This is a Pong project that has been developed using Processing software. It was made for a subject of my degree.
 
-# How to play
+## How to play
 
 In order to play you will need to:
 
