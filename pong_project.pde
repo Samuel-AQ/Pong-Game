@@ -3,25 +3,27 @@
 * Player 1: <w> (to move up) and <s> (to move down)
 * Player 2: <up arrow> (to move up) and <down arrow> (to move down)
 * @author: Samuel Arrocha Quevedo
-* @version: 10/02/2021
+* @version: 11/02/2021
 */
 
 import processing.sound.*;
 
-SoundFile sound;
+SoundFile hitSound, pointSound;
 int xCoordinate, yCoordinate, radius, ballSpeed, ballInclination, rightPlayerZone, leftPlayerZone, rectangleHeight, rectangleWidth, player1Score, player2Score;
 
 void setup(){
   size(500, 500);
-  startGame();
   rectangleHeight = 50;
   rectangleWidth = 5;
   rightPlayerZone = height / 2 - (rectangleHeight / 2);
   leftPlayerZone = height / 2 - (rectangleHeight / 2);
   radius = 20;
-  sound = new SoundFile(this, "pong_sound.mp3");
+  hitSound = new SoundFile(this, "pong_sound.mp3");
+  pointSound = new SoundFile(this, "point_pong_sound.mp3");
   player1Score = 0;
   player2Score = 0;
+  
+  setGameOptions();
 }
 
 void draw(){
@@ -39,22 +41,24 @@ void runPong(){
   yCoordinate += ballInclination;
   
   boolean ballHitsVerticalLimits = (yCoordinate + radius / 2) == height || (yCoordinate - radius / 2) == 0;
-  boolean ballHitsHorizontalLimits = (xCoordinate + radius / 2) > width || (xCoordinate - radius / 2) < 0;
+  boolean ballHitsLeftLimits = (xCoordinate - radius / 2) < 0;
+  boolean ballHitsRightLimits = (xCoordinate + radius / 2) > width;
   boolean rightPlayerHits = yCoordinate >= rightPlayerZone && (yCoordinate <= (rightPlayerZone + rectangleHeight)) && (xCoordinate + radius / 2 >= (width - 27));
   boolean leftPlayerHits = yCoordinate >= leftPlayerZone && yCoordinate <= leftPlayerZone + rectangleHeight && xCoordinate - radius / 2 <= 20;
   
-  if(rightPlayerHits){ 
+  if(rightPlayerHits || leftPlayerHits){ 
     changeHitBallDirection();
-    player2Score++;
-  }else if(leftPlayerHits){
-    changeHitBallDirection();
-    player1Score++;
   }else if(ballHitsVerticalLimits){
     // If the ball hits the upper or lower limit it will bounce
     ballInclination = -ballInclination;
-  }else if (ballHitsHorizontalLimits){
+  }else if (ballHitsLeftLimits){
     // If the ball falls out of the space it will return to its original coordinates with a different speed mode and different inclination
-    startGame();
+    player2Score++;
+    resetGameOptions();
+  }else if(ballHitsRightLimits){
+    // If the ball falls out of the space it will return to its original coordinates with a different speed mode and different inclination
+    player1Score++;
+    resetGameOptions();
   }
 }
 
@@ -83,14 +87,19 @@ void keyPressed(){
 
 void changeHitBallDirection(){
   ballSpeed = -ballSpeed;
-  thread("playSound");
+  thread("playhitSound");
 }
 
-void startGame(){
+void setGameOptions(){
   xCoordinate = width / 2;  
   yCoordinate = height / 2;
-  ballSpeed = (int) random(3, 6);
-  ballInclination = (int) random(-10, 10);
+  ballSpeed = (int) random(2, 5);
+  while(ballInclination == 0) ballInclination = (int) random(-5, 5);
+}
+
+void resetGameOptions(){
+  setGameOptions();
+  thread("playPointSound");
 }
 
 void setPongColors(){
@@ -101,6 +110,10 @@ void setPongColors(){
   stroke(white);
 }
 
-void playSound(){
-  sound.play();
+void playhitSound(){
+  hitSound.play();
+}
+
+void playPointSound(){
+  pointSound.play();
 }
