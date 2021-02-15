@@ -18,8 +18,8 @@ void setup(){
   rightPlayerZone = height / 2 - (rectangleHeight / 2);
   leftPlayerZone = height / 2 - (rectangleHeight / 2);
   radius = 20;
-  hitSound = new SoundFile(this, "pong_sound.mp3");
-  pointSound = new SoundFile(this, "point_pong_sound.mp3");
+  hitSound = new SoundFile(this, "../../data/pong_sound.mp3");
+  pointSound = new SoundFile(this, "../../data/point_pong_sound.mp3");
   player1Score = 0;
   player2Score = 0;
   
