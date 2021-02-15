@@ -16,7 +16,7 @@ In order to develop a better code "Clean code" rules have been applied using des
 
 ## Project data
 * Author: Samuel Arrocha Quevedo
-* Version: 11/12/2021
+* Version: 15/02/2021
 
 ## Game sample
 

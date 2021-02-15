@@ -3,7 +3,7 @@
 * Player 1: <w> (to move up) and <s> (to move down)
 * Player 2: <up arrow> (to move up) and <down arrow> (to move down)
 * @author: Samuel Arrocha Quevedo
-* @version: 11/02/2021
+* @version: 15/02/2021
 */
 
 import processing.sound.*;
@@ -18,8 +18,8 @@ void setup(){
   rightPlayerZone = height / 2 - (rectangleHeight / 2);
   leftPlayerZone = height / 2 - (rectangleHeight / 2);
   radius = 20;
-  hitSound = new SoundFile(this, "../../data/pong_sound.mp3");
-  pointSound = new SoundFile(this, "../../data/point_pong_sound.mp3");
+  hitSound = new SoundFile(this, "../../data/sounds/pong_sound.mp3");
+  pointSound = new SoundFile(this, "../../data/sounds/point_pong_sound.mp3");
   player1Score = 0;
   player2Score = 0;
   
