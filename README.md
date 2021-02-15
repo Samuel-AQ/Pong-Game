@@ -20,7 +20,7 @@ In order to develop a better code "Clean code" rules have been applied using des
 
 ## Game sample
 
-![Link to gif sample](https://github.com/Samuel-AQ/Pong-Game/tree/master/data/images/play_sample.gif)
+![Link to gif](https://github.com/Samuel-AQ/Pong-Game/tree/master/data/images/play_sample.gif)
 
 ## References
 
